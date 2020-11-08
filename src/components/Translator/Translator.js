@@ -1,45 +1,46 @@
 import React from "react";
 import "./Translator.scss";
 
-import { useTranslate } from "../../hooks/";
+import { translate, stringSplitter } from "../../utils/";
 
-const testString = "Lube application brush;";
-const testString2 =
-  "1 Lube application brush; 1 Cherry Clip-In Stabilizers (PCB) - 4x2u + 1x7u+ 1x6.25u; 4 Durock Stabilizers - 4x 2u. 1x 7u.; 1 Route Package Protection - ROUTEINS10";
-
-const stringSplitter = (str, separator) => {
-  const arrOfString = str.split(separator);
-  return arrOfString;
+// Splits the string arr further by qty, and reattaches.
+const splitAndTranslate = (arr) => {
+  return arr
+    .map((item) => {
+      let trimmed = item.trim();
+      let qty = trimmed.substr(0, trimmed.indexOf(" "));
+      let itemString = translate(trimmed.substr(trimmed.indexOf(" ") + 1));
+      let tempArr = [itemString, qty];
+      return tempArr.join(" x ");
+    })
+    .join("; ");
 };
 
 const Translator = () => {
-  const [enteredValue, updateValue] = React.useState("");
+  const [returnValue, updateReturnValue] = React.useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("yolo", enteredValue);
+    // Split the string by ';'
+    let splitValues = stringSplitter(e.target.input.value, ";");
+    // Filter out empty results.
+    splitValues = splitValues.filter(
+      (text) => !text == "" && !text.includes("Route")
+    );
 
-    const splitValues = stringSplitter(testString, ";");
-
-    splitValues.map((item) => {
-      console.log("item", useTranslate(item));
-    });
-  };
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-    updateValue(value);
+    return updateReturnValue(splitAndTranslate(splitValues));
   };
 
   return (
     <>
       <form className="Translator__form" onSubmit={handleSubmit}>
-        {/* <label>Items Input</label> */}
-        <textarea className="Translator__input" onChange={handleChange}>
-          {enteredValue}
-        </textarea>
+        <textarea
+          className="Translator__input"
+          // onChange={handleChange}
+          name="input"
+        ></textarea>
         <button className="Translator__button">Enter</button>
       </form>
-      <div>test translation: 6MIX Lube</div>
+      <div>{returnValue}</div>
     </>
   );
 };
