@@ -1,5 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+
+// Test Translation
+import { useTranslate } from "./hooks/";
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
         >
           Learn React
         </a>
+        <div>{useTranslate("6MIX Lube")}</div>
       </header>
     </div>
   );
