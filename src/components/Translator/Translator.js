@@ -48,6 +48,7 @@ const Translator = () => {
     let splitValues = stringSplitter(e.target.input.value, ";");
     // Filter out empty results.
     splitValues = splitValues.filter(
+      // eslint-disable-next-line
       (text) => !text == "" && !text.includes("Route")
     );
 
