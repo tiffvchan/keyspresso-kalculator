@@ -1,0 +1,23 @@
+@import "../../styles/base";
+
+.Translator {
+  display: flex;
+  justify-content: center;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__input {
+    width: 50vw;
+    height: 10vw;
+    padding: 5px;
+    border-radius: 10px;
+    font-family: "FuturaMedium";
+    font-size: 1rem;
+  }
+  &__button {
+    margin-top: 5px;
+    width: 10vw;
+  }
+}

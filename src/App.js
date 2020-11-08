@@ -1,27 +1,11 @@
-import logo from "./logo.svg";
-import "./App.css";
-
-// Test Translation
-import { useTranslate } from "./hooks/";
+import "./App.scss";
+import Translator from "./components/Translator/Translator";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <div>{useTranslate("6MIX Lube")}</div>
-      </header>
+      <h1>Keyspresso Kalculator</h1>
+      <Translator />
     </div>
   );
 }
