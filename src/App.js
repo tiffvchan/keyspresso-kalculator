@@ -4,7 +4,7 @@ import Translator from "./components/Translator/Translator";
 function App() {
   return (
     <div className="App">
-      <h1>Keyspresso Kalculator</h1>
+      <h1 className="App_heading">Keyspresso Kalculator</h1>
       <Translator />
     </div>
   );
