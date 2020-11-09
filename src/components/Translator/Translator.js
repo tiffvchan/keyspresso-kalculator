@@ -9,7 +9,7 @@ import { translate, stringSplitter } from "../../utils/";
 const splitAndTranslate = (arr, cb) => {
   const errorArr = []
 
-  const translatedString = arr
+  const translatedProducts = arr
     .map((item) => {
       let trimmed = item.trim();
       let qty = trimmed.substr(0, trimmed.indexOf(" "));
@@ -21,14 +21,28 @@ const splitAndTranslate = (arr, cb) => {
         errorArr.push(product)
       }
       
-      let tempArr = [productTranslated === product ? product : productTranslated, qty];
-      return tempArr.join(" x ");
+      let productName = productTranslated === product ? product : productTranslated;
+
+      return [productName, parseInt(qty)]
     })
-    .join("; ");
-  
+
+    // add products together with same translated name
+    const productSummary = {}
+    translatedProducts.forEach(product => {
+      if (!productSummary[product[0]]) {
+        productSummary[product[0]] = product[1]
+      } else {
+        productSummary[product[0]] += product[1]
+      }
+    })
+
+    // after summing same product skus, create ' x QTY' string for each sku, join into one string with ';' separator
+    return Object.entries(productSummary).map(product => {
+      return [product[0], [product[1]].toString()].join(" x ")
+    }).join("; ")
+
   cb(errorArr)
 
-  return translatedString;
 };
 
 const autoCopyToClipboard = () => {
