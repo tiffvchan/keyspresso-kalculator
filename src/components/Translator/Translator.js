@@ -36,12 +36,13 @@ const splitAndTranslate = (arr, cb) => {
       }
     })
 
+    cb(errorArr)
+    
     // after summing same product skus, create ' x QTY' string for each sku, join into one string with ';' separator
     return Object.entries(productSummary).map(product => {
       return [product[0], [product[1]].toString()].join(" x ")
     }).join("; ")
 
-  cb(errorArr)
 
 };
 
