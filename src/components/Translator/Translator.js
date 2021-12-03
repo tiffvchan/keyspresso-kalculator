@@ -64,7 +64,7 @@ const Translator = () => {
     // Filter out empty results.
     splitValues = splitValues.filter(
       // eslint-disable-next-line
-      (text) => !text == "" && !text.includes("Route")
+      (text) => !text == "" && !text.includes("Route" || "Tip")
     );
 
     await updateReturnValue(splitAndTranslate(splitValues, errorCallback));
